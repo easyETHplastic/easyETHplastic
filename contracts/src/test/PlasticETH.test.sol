@@ -9,9 +9,9 @@ contract PlasticETHTest is Test {
 
     PlasticETH plasticETH;
 
-    function setUp() external{
+    function setUp() external {
         plasticETH = new PlasticETH();
-        vm.deal(address(this), 1 ether);
+        vm.deal(address(this), 10 ether);
     }
 
     function testBuyEmitsEvent() public {
@@ -19,4 +19,20 @@ contract PlasticETHTest is Test {
         emit Buy(address(this), 1 ether);
         plasticETH.buy{value: 1 ether}();
     }
+
+    function testWithdraw() public {
+        plasticETH.buy{value: 1 ether}();
+        plasticETH.buy{value: 1 ether}();
+        plasticETH.withdraw();
+        assertEq(address(this).balance, 10 ether);
+    }
+
+    function testWithdrawFailIfNotOwner() public {
+        plasticETH.buy{value: 1 ether}();
+        vm.prank(address(0xBEEF));
+        vm.expectRevert("UNAUTHORIZED");
+        plasticETH.withdraw();
+    }
+
+    receive() external payable {}
 }
