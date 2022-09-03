@@ -1,2 +1,2 @@
-# easyETHplastic
-easyETHplastic app for the EthWarsaw hackathon
+# ethPlastic
+ethPlastic app for the EthWarsaw hackathon
