@@ -1,5 +1,7 @@
 <script setup>
 import AppHeader from "./components/AppHeader.vue";
+import AppFooter from "./components/AppFooter.vue";
+
 </script>
 
 <template>
@@ -48,9 +50,9 @@ import AppHeader from "./components/AppHeader.vue";
 
     <div class="flex items-center mx-auto max-w-screen-xl pt-16">
       <div class="w-1/3 m-10">
-        <div class="p-6 hover:bg-zinc-400 rounded-lg">
+        <div class="group p-6 hover:bg-zinc-400 rounded-lg">
           <div
-            class="relative rounded-md text-xl h-48 p-6 bg-gradient-to-tr from-cyan-500 to-blue-500 hover:shadow-xl hover:animate-pulse font-roboto"
+            class="relative rounded-md text-xl h-48 p-6 bg-gradient-to-tr from-cyan-500 to-blue-500 group-hover:shadow-xl group-hover:animate-pulse font-roboto"
           >
             <p class="text-5xl font-dmsans pt-3 pb-6">$25</p>
             <p>0123 0432 1043 3405</p>
@@ -78,9 +80,9 @@ import AppHeader from "./components/AppHeader.vue";
         </div>
       </div>
       <div class="w-1/3 m-10">
-        <div class="p-6 hover:bg-zinc-400 rounded-lg">
+        <div class="group p-6 hover:bg-zinc-400 rounded-lg">
           <div
-            class="relative rounded-md text-xl h-48 p-6 bg-gradient-to-tr from-orange-300 to-orange-600 hover:shadow-xl hover:animate-pulse font-roboto"
+            class="relative rounded-md text-xl h-48 p-6 bg-gradient-to-tr from-orange-300 to-orange-600 group-hover:shadow-xl group-hover:animate-pulse font-roboto"
           >
             <p class="text-5xl font-dmsans pt-3 pb-6">$100</p>
             <p>0123 0432 1043 3405</p>
@@ -108,9 +110,9 @@ import AppHeader from "./components/AppHeader.vue";
         </div>
       </div>
       <div class="w-1/3 m-10">
-        <div class="p-6 hover:bg-zinc-400 rounded-lg">
+        <div class="group p-6 hover:bg-zinc-400 rounded-lg">
           <div
-            class="relative rounded-md text-xl h-48 p-6 bg-gradient-to-tr from-zinc-700 to-zinc-900 hover:shadow-xl hover:animate-pulse font-roboto"
+            class="relative rounded-md text-xl h-48 p-6 bg-gradient-to-tr from-zinc-700 to-zinc-900 group-hover:shadow-xl group-hover:animate-pulse font-roboto"
           >
             <p class="text-5xl font-dmsans pt-3 pb-6">$Custom</p>
             <p>0123 0432 1043 3405</p>
@@ -138,6 +140,7 @@ import AppHeader from "./components/AppHeader.vue";
         </div>
       </div>
     </div>
+    <AppFooter/>
   </div>
 </template>
 
