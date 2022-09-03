@@ -118,6 +118,14 @@ export default {
           wallet_snap: { ['local:https://localhost:8080']: {} },
         }]
       })
+
+      // FIXME: Just testing the snap template:
+      ethereum.request({
+        method: 'wallet_invokeSnap',
+        params: ['local:https://localhost:8080', {
+          method: 'hello'
+        }]
+      })
     }
   }
 };
