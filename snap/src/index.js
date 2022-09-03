@@ -25,27 +25,26 @@ module.exports.onRpcRequest = async ({ origin, request }) => {
       }
       return 'true';
     case 'register_wallet':
-      // readState = await wallet.request({
-      //   method: 'snap_manageState',
-      //   params: ['get'],
-      // });
-      // if (
-      //   readState === null ||
-      //   (typeof readState === 'object' && readState.kyc === undefined)
-      // ) {
-      //   return 'KYC_DATA_NOT_SAVED';
-      // }
-      // // Get wallet
-      // walletAddress =  await wallet.request({
-      //   method: 'eth_requestAccounts'
-      // });
+      const kycData = await wallet.request({
+        method: 'snap_manageState',
+        params: ['get'],
+      });
+      if (
+        kycData === null ||
+        (typeof kycData === 'object' && kycData.kyc === undefined)
+      ) {
+        return 'KYC_DATA_NOT_SAVED';
+      }
+      // Get wallet
+      const walletAddress =  await wallet.request({
+        method: 'eth_requestAccounts'
+      });
 
-      // // readState.kyc.name.first
-      // // readState.kyc.name.last
-      // // walletAddress
-      // // TODO: KYC request
-      // return readState.kyc.first;
-      return "OK";
+      // TODO: KYC request
+      return fetch('https://google.com');
+      
+      // return walletAddress;
+      // return "OK";
     default:
       throw new Error('Method not found.1');
   }
