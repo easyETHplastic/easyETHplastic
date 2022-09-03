@@ -132,10 +132,11 @@ export default {
     }
   },
   mounted() {
-    const snapID = "local:https://localhost:8080";
-    const result = ethereum.request({ method: 'wallet_getSnaps' }).then((result) => {
-      if (snapID in result) {
-        this.connectButtonLabel = "MetaMask connected"
+    const result = ethereum.request({ method: 'wallet_getPermissions' }).then((result) => {
+      for (let i = 0; i < result.length; ++i) {
+        if (result[i].parentCapability === 'eth_accounts') {
+          this.connectButtonLabel = "MetaMask connected"
+        }
       }
     });
   }
