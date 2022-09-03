@@ -25,7 +25,9 @@
     <br/>
 
     <button class="connect">Connect</button>
-    <button class="sendHello">Send Hello</button>
+    <button class="sendHello">Save Data</button>
+    <button class="checkButton">Check Data</button>
+    <button class="register">Regsiter Wallet</button>
   </body>
 
   <script>
@@ -33,9 +35,13 @@
 
     const connectButton = document.querySelector('button.connect')
     const sendButton = document.querySelector('button.sendHello')
+    const checkButton = document.querySelector('button.checkButton')
+    const registerButton = document.querySelector('button.register')
 
     connectButton.addEventListener('click', connect)
     sendButton.addEventListener('click', send)
+    checkButton.addEventListener('click', checkData)
+    registerButton.addEventListener('click', registerWallets)
 
     // here we get permissions to interact with and install the snap
     async function connect () {
@@ -49,13 +55,49 @@
 
     // here we call the snap's "hello" method
     async function send () {
+      const first_name = 'Reuben'
+      const last_name = 'Rodrigues'
+
       try {
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
-          params: [snapId, {
-            method: 'hello'
-          }]
+          params: [
+            snapId,
+            { method: 'save_kyc_data', first_name, last_name },
+          ]
         })
+      } catch (err) {
+        console.error(err)
+        alert('Problem happened: ' + err.message || err)
+      }
+    }
+
+    async function checkData () {
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [
+            snapId,
+            { method: 'is_kyc_data_saved' },
+          ]
+        })
+        alert(response)
+      } catch (err) {
+        console.error(err)
+        alert('Problem happened: ' + err.message || err)
+      }
+    }
+
+    async function registerWallets(){
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [
+            snapId,
+            { method: 'register_wallet' },
+          ]
+        })
+        alert(response)
       } catch (err) {
         console.error(err)
         alert('Problem happened: ' + err.message || err)
