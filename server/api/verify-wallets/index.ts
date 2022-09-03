@@ -7,24 +7,37 @@ var path = require("path");
 var abi = require("../../abi/Regsitry.json");
 
 export default async (req: Request, res: Response) => {
-  let uuid = req.body.payload.uuid;
+  let uuid = req.body.uuid;
+  let wallets = req.body.wallets;
+
   const uri = `mongodb+srv://plastic:${process.env.MONGO_PASS}@cluster0.jwwc53t.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);
   await client.connect();
-
-  // console.log(await client.db().admin().listDatabases());
   const database = client.db("plastic");
   const salts = database.collection("salts");
-  const randomSalt = makeid(5);
 
-  const doc = {
-    uuid,
-    randomSalt,
-  };
+  const doc = await salts.findOne({ uuid });
 
-  await salts.insertOne(doc);
+  if (!doc) {
+    res.json({ status: "KYC_NOT_COMPLETE" });
+    return;
+  }
 
-  res.json({ message: "Success" });
+  const provider = new ethers.providers.InfuraProvider(
+    "goerli",
+    process.env.INFURA_API_KEY
+  );
+  const signer = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+  let contract = new ethers.Contract(
+    process.env.REGISTRY_CONTRACT,
+    abi,
+    signer
+  );
+  for (let i = 0; i < wallets.length; i++) {
+    console.log(await contract.verify(wallets[i]));
+  }
+
+  res.json({ status: "OK" });
 };
 
 function makeid(length) {
