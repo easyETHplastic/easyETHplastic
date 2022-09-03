@@ -1,18 +1,18 @@
 {
-  "version": "0.7.0",
+  "version": "1.0.0",
   "description": "A MetaMask Snap template.",
   "proposedName": "MetaMask Template Snap",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/snap-template.git"
+    "url": "https://github.com/ethPlastic/ethPlastic.git"
   },
   "source": {
-    "shasum": "hukl43DodpGRvRwA2uY0WNuHGbZco7gURsDGcmlMmDI=",
+    "shasum": "jpg5/axYag9PX34i1370yGe5jYylndEukw6JvACjMeM=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
         "iconPath": "images/icon.svg",
-        "packageName": "@metamask/template-snap",
+        "packageName": "ethplastic-snap",
         "registry": "https://registry.npmjs.org/"
       }
     }

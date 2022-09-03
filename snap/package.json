@@ -1,12 +1,12 @@
 {
-  "name": "@metamask/template-snap",
-  "version": "0.7.0",
-  "description": "The 'Hello, world!' of MetaMask Snaps.",
+  "name": "ethplastic-snap",
+  "version": "1.0.0",
+  "description": "MetaMask snap for ethPlastic app.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/MetaMask/snap-template.git"
+    "url": "https://github.com/ethPlastic/ethPlastic.git"
   },
-  "license": "MIT",
+  "license": "GPL-3.0",
   "main": "src/index.js",
   "files": [
     "dist/",
