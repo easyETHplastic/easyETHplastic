@@ -123,7 +123,11 @@ export default {
           wallet_snap: { ['local:https://localhost:8080']: {} },
         }]
       }).then((result) => {
-        this.connectButtonLabel = "MetaMask connected"
+        ethereum
+          .request({ method: 'eth_requestAccounts' })
+          .then(() => {
+            this.connectButtonLabel = "MetaMask connected"
+          })
       })
     }
   },
