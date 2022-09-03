@@ -200,7 +200,7 @@
 
 <script>
 import { ethers } from "ethers";
-import * as plasticETHABI from "../../contracts/PlasticETH.json";
+import plasticETHABI from "../../contracts/PlasticETH.json";
 
 export default {
   name: "AppBody",
@@ -210,56 +210,18 @@ export default {
     selectedProduct: null,
   }),
   methods: {
-    productClick(event) {
+    async productClick(event) {
       this.open = !this.open;
       this.selectedProduct = event.target.getAttribute("data-product");
 
-      ethereum
-        .request({ method: 'eth_requestAccounts' })
-        .then(() => { alert("account request") })
-        .catch((error) => {
-          if (error.code === 4001) {
-            // EIP-1193 userRejectedRequest error
-            alert('Please connect to MetaMask.');
-          } else {
-            console.error(error);
-          }
-        });
-
-      const goerli = ethers.providers.getNetwork("goerli");
-      const provider = ethers.getDefaultProvider(goerli);
-
-      try {
-        const plasticETH = new ethers.Contract(
-          '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
-          // FIXME: Wrong, I guess we need the ABI object here rather than ABI JSON?
-          plasticETHABI,
-          provider
-        )
-        alert(plasticETH.buy.selector);
-      }
-      catch (error) {
-        alert(error);
-      }
-
-      // FIXME: unfinished stub
-      //ethereum.request({
-      //  method: 'eth_sendTransaction',
-      //  params: {
-      //    //nonce: '0x00', // ignored by MetaMask
-      //    //gasPrice: '0x09184e72a000', // customizable by user during MetaMask confirmation.
-      //    //gas: '0x2710', // customizable by user during MetaMask confirmation.
-      //    to: '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
-      //    from: ethereum.selectedAddress,
-      //    //value: '0x00', // Only required to send ether to the recipient from the initiating external account.
-      //    data:
-      //      abiCoder()
-      //      '0x7f7465737432000000000000000000000000000000000000000000000000000000600057', // Optional, but used for defining smart contract creation and interaction.
-      //    //chainId: '0x3', // Used to prevent transaction reuse across blockchains. Auto-filled by MetaMask.
-      //  }
-      //}).catch((error) => {
-      //  console.log(error)
-      //})
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const plasticETH = new ethers.Contract(
+        '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
+        plasticETHABI,
+        signer
+      )
+      console.log(await plasticETH.buy({value: 1}));
     },
     modalClick(event) {
       this.open = !this.open;
