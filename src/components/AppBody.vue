@@ -70,7 +70,7 @@
             ></path>
           </svg>
         </div>
-        <div class="p-3 mx-auto rounded-md text-center" @click="open = !open">Buy me!</div>
+        <div class="p-3 mx-auto rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="open = !open">Buy me!</div>
       </div>
     </div>
     <div class="w-1/3 m-10">
