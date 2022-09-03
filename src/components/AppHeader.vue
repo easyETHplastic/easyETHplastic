@@ -99,7 +99,7 @@
             d="m267.2 153.5-52.3-15.3 15.9 23.9-23.7 46 31.2-.4h46.5zm-163.6-15.3-52.3 15.3-17.4 54.2h46.4l31.1.4-23.6-46zm71 26.4 3.3-57.7 15.2-41.1h-67.5l15 41.1 3.5 57.7 1.2 18.2.1 44.8h27.7l.2-44.8z"
             class="st6"
           ></path>
-        </svg> connect metamask
+        </svg> {{ connectButtonLabel }}
       </button>
     </div>
   </div>
@@ -109,6 +109,11 @@
 import { ethers } from "ethers";
 
 export default {
+  data() {
+    return {
+      connectButtonLabel: "Connect MetaMask",
+    }
+  },
   methods: {
     connectMetamaskClick(event) {
       // FIXME: This assumes that you're serving the snap from the snap/ subdir at port 8080 via yarn serve.
@@ -117,16 +122,23 @@ export default {
         params: [{
           wallet_snap: { ['local:https://localhost:8080']: {} },
         }]
-      })
-
-      // FIXME: Just testing the snap template:
-      ethereum.request({
-        method: 'wallet_invokeSnap',
-        params: ['local:https://localhost:8080', {
-          method: 'hello'
-        }]
+      }).then((result) => {
+        this.connectButtonLabel = "MetaMask connected"
       })
     }
+  },
+  mounted() {
+    const snapID = "local:https://localhost:8080";
+    const result = ethereum.request({ method: 'wallet_getSnaps' }).then((result) => {
+      if (snapID in result) {
+        if (result[snapID].error.length === 0) {
+          this.connectButtonLabel = "MetaMask connected"
+        }
+        else {
+          alert(result[snapID].error.message);
+        }
+      }
+    });
   }
 };
 </script>
