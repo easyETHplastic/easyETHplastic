@@ -7,8 +7,11 @@ var path = require("path");
 var abi = require("../../abi/Regsitry.json");
 
 export default async (req: Request, res: Response) => {
-  let uuid = req.body.uuid;
-  let wallets = req.body.wallets;
+  let uuid = req.query.uuid;
+  let wallets = [req.query.wallet];
+
+  console.log("s ", uuid);
+  console.log("w ", wallets);
 
   const uri = `mongodb+srv://plastic:${process.env.MONGO_PASS}@cluster0.jwwc53t.mongodb.net/?retryWrites=true&w=majority`;
   const client = new MongoClient(uri);

@@ -25,8 +25,8 @@
     <br/>
 
     <button class="connect">Connect</button>
-    <button class="sendHello">Save Data</button>
-    <button class="checkButton">Check Data</button>
+    <button class="sendHello">Save Secret</button>
+    <button class="checkButton">Check Secret exitsts</button>
     <button class="register">Regsiter Wallet</button>
   </body>
 
@@ -55,15 +55,13 @@
 
     // here we call the snap's "hello" method
     async function send () {
-      const first_name = 'Reuben'
-      const last_name = 'Rodrigues'
-
+      const uuid = 'someRandomUUID'
       try {
         const response = await ethereum.request({
           method: 'wallet_invokeSnap',
           params: [
             snapId,
-            { method: 'save_kyc_data', first_name, last_name },
+            { method: 'save_kyc_data', uuid },
           ]
         })
       } catch (err) {

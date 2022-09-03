@@ -1,15 +1,11 @@
 module.exports.onRpcRequest = async ({ origin, request }) => {
-  let first_name, last_name;
+  let uuid;
   switch (request.method) {
     case 'save_kyc_data':
-      ({ first_name, last_name } = request);
-      const state = {
-        first : first_name, 
-        last : last_name 
-      };
+      ({ uuid } = request);
       await wallet.request({
         method: 'snap_manageState',
-        params: ['update', { kyc: state }],
+        params: ['update', { uuid }],
       });
       return 'OK';
     case 'is_kyc_data_saved':
@@ -19,19 +15,19 @@ module.exports.onRpcRequest = async ({ origin, request }) => {
       });
       if (
         readState === null ||
-        (typeof readState === 'object' && readState.kyc === undefined)
+        (typeof readState === 'object' && readState.uuid === undefined)
       ) {
         return 'false';
       }
       return 'true';
     case 'register_wallet':
-      const kycData = await wallet.request({
+      const uuidData = await wallet.request({
         method: 'snap_manageState',
         params: ['get'],
       });
       if (
-        kycData === null ||
-        (typeof kycData === 'object' && kycData.kyc === undefined)
+        uuidData === null ||
+        (typeof uuidData === 'object' && uuidData.uuid === undefined)
       ) {
         return 'KYC_DATA_NOT_SAVED';
       }
@@ -40,11 +36,12 @@ module.exports.onRpcRequest = async ({ origin, request }) => {
         method: 'eth_requestAccounts'
       });
 
-      // TODO: KYC request
-      return fetch('https://google.com');
-      
-      // return walletAddress;
-      // return "OK";
+      // Verify address
+      await fetch(`http://localhost:3000/verify-wallets?uuid=${uuidData.uuid}&wallet=${walletAddress}`, {
+        method: 'POST',
+        mode: 'no-cors'
+      });
+      return "OK";
     default:
       throw new Error('Method not found.1');
   }
