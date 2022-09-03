@@ -13,8 +13,9 @@
           ></path>
         </svg>
       </div>
-      <div
+      <button
         class="rounded-full bg-zinc-800 p-3 w-64 text-center hover:shadow-xl hover:text-indigo-300 flex items-center justify-evenly"
+        @click="connectMetamaskClick"
       >
         <svg
           class="h-10 bg-white rounded-full p-2"
@@ -99,13 +100,26 @@
             class="st6"
           ></path>
         </svg> connect metamask
-      </div>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import { ethers } from "ethers";
+
 export default {
+  methods: {
+    connectMetamaskClick(event) {
+      // FIXME: This assumes that you're serving the snap from the snap/ subdir at port 8080 via yarn serve.
+      ethereum.request({
+        method: 'wallet_enable',
+        params: [{
+          wallet_snap: { ['local:https://localhost:8080']: {} },
+        }]
+      })
+    }
+  }
 };
 </script>
 
