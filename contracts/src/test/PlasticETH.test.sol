@@ -5,7 +5,7 @@ import "forge-std/Test.sol";
 import "../PlasticETH.sol";
 
 contract PlasticETHTest is Test {
-    event Buy(address indexed buyer, uint256 amount);
+    event Buy(address indexed buyer, uint256 amount, uint256 nonce);
 
     PlasticETH plasticETH;
 
@@ -16,7 +16,7 @@ contract PlasticETHTest is Test {
 
     function testBuyEmitsEvent() public {
         vm.expectEmit(true, false, false, true);
-        emit Buy(address(this), 1 ether);
+        emit Buy(address(this), 1 ether, 0);
         plasticETH.buy{value: 1 ether}();
     }
 
