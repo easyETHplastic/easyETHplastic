@@ -70,7 +70,7 @@
             ></path>
           </svg>
         </div>
-        <div class="p-3 mx-auto rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="open = !open">Buy me!</div>
+        <button class="p-3 mx-auto rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
       </div>
     </div>
     <div class="w-1/3 m-10">
@@ -100,7 +100,7 @@
             ></path>
           </svg>
         </div>
-        <div class="p-3 mx-auto rounded-md text-center">Buy me!</div>
+        <button class="p-3 mx-auto rounded-md text-center">Buy me!</button>
       </div>
     </div>
     <div class="w-1/3 m-10">
@@ -130,7 +130,7 @@
             ></path>
           </svg>
         </div>
-        <div class="p-3 mx-auto rounded-md text-center">Buy me!</div>
+        <button class="p-3 mx-auto rounded-md text-center">Buy me!</button>
       </div>
     </div>
   </div>
