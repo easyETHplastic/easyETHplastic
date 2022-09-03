@@ -168,6 +168,7 @@
 </svg>
 
           Start KYC verification</div>
+          <div class="text-center text-xs pt-2 text-zinc-200">Secure ID check powered by Authologic</div>
         </div>
       </div>
     </div>
