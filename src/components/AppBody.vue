@@ -70,7 +70,7 @@
             ></path>
           </svg>
         </div>
-        <button class="p-3 mx-auto rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
+        <button data-product="visa25USD" class="p-3 mx-auto rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
       </div>
     </div>
     <div class="w-1/3 m-10">
@@ -100,7 +100,7 @@
             ></path>
           </svg>
         </div>
-        <button class="p-3 mx-auto rounded-md text-center">Buy me!</button>
+        <button data-product="visa50USD" class="p-3 mx-auto rounded-md text-center">Buy me!</button>
       </div>
     </div>
     <div class="w-1/3 m-10">
@@ -130,7 +130,7 @@
             ></path>
           </svg>
         </div>
-        <button class="p-3 mx-auto rounded-md text-center">Buy me!</button>
+        <button data-product="visaCustom" class="p-3 mx-auto rounded-md text-center">Buy me!</button>
       </div>
     </div>
   </div>
@@ -139,7 +139,7 @@
     class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop-blur-md text-2xl text-white"
   >
     <div
-      @click="open = !open"
+      @click="modalClick"
       class="relative top-1/3 mx-auto flex items-center p-4 w-full max-w-md h-full md:h-auto"
     >
       <div class="bg-zinc-400 rounded-xl p-10 w-full">
@@ -203,8 +203,19 @@ export default {
   name: "AppBody",
   components: {},
   data: () => ({
-    open: false
-  })
+    open: false,
+    selectedProduct: null,
+  }),
+  methods: {
+    productClick(event) {
+      this.open = !this.open;
+      this.selectedProduct = event.target.getAttribute("data-product");
+    },
+    modalClick(event) {
+      this.open = !this.open;
+      this.selectedProduct = null;
+    }
+  }
 };
 </script>
 
