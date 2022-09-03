@@ -6,7 +6,7 @@ import AppBody from "./components/AppBody.vue";
 </script>
 
 <template>
-  <div class="bg-zinc-700 text-zinc-200">
+  <div class="bg-zinc-700 text-zinc-200 relative">
     <AppHeader/>
     <AppBody/>
     <AppFooter/>
