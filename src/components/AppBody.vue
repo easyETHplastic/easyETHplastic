@@ -13,7 +13,7 @@
   <div class="flex items-center mx-auto max-w-screen-xl pt-16" @click="open != open">
     <div class="flex items-center w-1/3">
       <div class="rounded-full w-14 h-14 bg-zinc-200">
-        <img src="public/face3.jpeg" class="object-fill rounded-full">
+        <img src="face3.jpeg" class="object-fill rounded-full">
       </div>
       <div class="p-4 flex-1">
         <div
@@ -24,7 +24,7 @@
     </div>
     <div class="flex items-center">
       <div class="rounded-full w-14 h-14 bg-zinc-200">
-        <img src="public/face1.jpg" class="object-fill rounded-full">
+        <img src="face1.jpg" class="object-fill rounded-full">
       </div>
       <div class="p-4 flex-1">
         <div class="text-xl text-zinc-300">OMG this is so fast - almost instant!</div>
@@ -33,7 +33,7 @@
     </div>
     <div class="flex items-center w-1/3">
       <div class="rounded-full w-14 h-14 bg-zinc-200">
-        <img src="public/face2.jpeg" class="object-fill rounded-full">
+        <img src="face2.jpeg" class="object-fill rounded-full">
       </div>
       <div class="p-4 flex-1">
         <div class="text-xl text-zinc-300">I’ve been waiting for this my whole life. Once you buy you never stop buying!</div>
