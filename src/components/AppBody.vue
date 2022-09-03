@@ -132,7 +132,7 @@
         </div>
       </div>
     </div>
-    <div v-if="open" class="text-2xl text-white">
+    <div v-if="open" class="absolute top-0 backdrop-blur-md w-full h-full text-2xl text-white">
          <div @click="open = !open">
               <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" class="h-6 w-6">
                 <path
