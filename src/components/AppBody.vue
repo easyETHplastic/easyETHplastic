@@ -35,7 +35,7 @@
       <div class="rounded-full w-14 h-14 bg-zinc-200">
         <img src="face2.jpeg" class="object-fill rounded-full">
       </div>
-      <div class="p-4 flex-1">
+      <div class="p-4 flex-1" @click="checkoutModalOpen = !checkoutModalOpen">
         <div class="text-xl text-zinc-300">I’ve been waiting for this my whole life. Once you buy you never stop buying!</div>
         <div class="text-sm text-zinc-400">accel.eth</div>
       </div>
@@ -70,7 +70,7 @@
             ></path>
           </svg>
         </div>
-        <button data-product="visa25USD" class="p-3 mx-auto rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
+        <button data-product="visa25USD" class="p-3 mx-auto w-full rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
       </div>
     </div>
     <div class="w-1/3 m-10">
@@ -100,7 +100,7 @@
             ></path>
           </svg>
         </div>
-        <button data-product="visa50USD" class="p-3 mx-auto rounded-md text-center">Buy me!</button>
+        <button data-product="visa50USD" class="p-3 mx-auto w-full rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
       </div>
     </div>
     <div class="w-1/3 m-10">
@@ -130,14 +130,11 @@
             ></path>
           </svg>
         </div>
-        <button data-product="visaCustom" class="p-3 mx-auto rounded-md text-center">Buy me!</button>
+        <button data-product="visaCustom" class="p-3 mx-auto w-full rounded-full text-center group-hover:bg-zinc-800 hover:text-indigo-300 hover:shadow-xl mt-4" @click="productClick">Buy me!</button>
       </div>
     </div>
   </div>
-  <div
-    v-if="open"
-    class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop-blur-md text-2xl text-white"
-  >
+  <div v-if="open" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop-blur-md text-2xl text-white">
     <div
       @click="modalClick"
       class="relative top-1/3 mx-auto flex items-center p-4 w-full max-w-md h-full md:h-auto"
@@ -196,6 +193,51 @@
       </div>
     </div>
   </div>
+  <div v-if="checkoutModalOpen" class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 w-full md:inset-0 h-modal md:h-full backdrop-blur-md text-2xl text-white">
+    <div
+      
+      class="relative top-1/3 mx-auto flex items-center p-4 w-full max-w-md h-full md:h-auto"
+    >
+      <div class="bg-zinc-400 rounded-xl p-10 w-full">
+        <div class="flex items-center justify-between w-full font-semibold">
+          <div class="text-sm font-dmsans">How much money you want on your card?</div>
+          <svg stroke="currentColor" fill="none" viewBox="0 0 24 24" class="h-4 w-4" @click="checkoutModalOpen = !checkoutModalOpen">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </div>
+        <div class="text-sm p-2 pt-6">
+          Amount to transfer:
+          <div class="flex items-center text-zinc-800 space-x-2 pt-2">
+          <input class="w-2/3  rounded-l-md p-3 bg-zinc-100" value="100"/>
+          <div class="flex-1 rounded-r-md p-3 bg-zinc-100">
+          <select id="crypto" name="crypto" class="bg-zinc-100">
+  <option value="eth">ETH</option>
+  <option value="matic">Matic</option>
+  <option value="usdc" selected>USDC</option>
+  <option value="usdt">USDT</option>
+</select>
+</div>
+</div>
+          <div
+            class="mt-10 rounded-full mx-auto bg-zinc-800 text-center p-3 hover:shadow-xl hover:text-indigo-300 flex items-center justify-center"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
+</svg>
+
+
+            Turn crypto into VISA card!
+          </div>
+          <div class="text-center text-xs pt-2 text-zinc-200"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -207,6 +249,7 @@ export default {
   components: {},
   data: () => ({
     open: false,
+    checkoutModalOpen: false,
     selectedProduct: null,
   }),
   methods: {
@@ -222,6 +265,9 @@ export default {
         signer
       )
       console.log(await plasticETH.buy({value: 1}));
+    },
+    async checkoutClick(event) {
+        this.checkoutModalOpen = !this.checkoutModalOpen;
     },
     modalClick(event) {
       this.open = !this.open;
