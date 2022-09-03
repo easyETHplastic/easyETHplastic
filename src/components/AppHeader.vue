@@ -131,12 +131,7 @@ export default {
     const snapID = "local:https://localhost:8080";
     const result = ethereum.request({ method: 'wallet_getSnaps' }).then((result) => {
       if (snapID in result) {
-        if (result[snapID].error.length === 0) {
-          this.connectButtonLabel = "MetaMask connected"
-        }
-        else {
-          alert(result[snapID].error.message);
-        }
+        this.connectButtonLabel = "MetaMask connected"
       }
     });
   }
