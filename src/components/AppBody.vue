@@ -213,18 +213,19 @@
         <div class="text-sm p-2 pt-6">
           Amount to transfer:
           <div class="flex items-center text-zinc-800 space-x-2 pt-2">
-          <input class="w-2/3  rounded-l-md p-3 bg-zinc-100" value="100"/>
+          <input ref="productPrice" class="w-2/3  rounded-l-md p-3 bg-zinc-100" value="0.001"/>
           <div class="flex-1 rounded-r-md p-3 bg-zinc-100">
           <select id="crypto" name="crypto" class="bg-zinc-100">
-  <option value="eth">ETH</option>
+  <option value="eth" selected>ETH</option>
   <option value="matic">Matic</option>
-  <option value="usdc" selected>USDC</option>
+  <option value="usdc">USDC</option>
   <option value="usdt">USDT</option>
 </select>
 </div>
 </div>
           <div
             class="mt-10 rounded-full mx-auto bg-zinc-800 text-center p-3 hover:shadow-xl hover:text-indigo-300 flex items-center justify-center"
+             @click="buyClick"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 mr-2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
@@ -256,15 +257,6 @@ export default {
     async productClick(event) {
       this.open = !this.open;
       this.selectedProduct = event.target.getAttribute("data-product");
-
-      let provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const plasticETH = new ethers.Contract(
-        '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
-        plasticETHABI,
-        signer
-      )
-      console.log(await plasticETH.buy({value: 1}));
     },
     async checkoutClick(event) {
         this.checkoutModalOpen = !this.checkoutModalOpen;
@@ -272,6 +264,22 @@ export default {
     modalClick(event) {
       this.open = !this.open;
       this.selectedProduct = null;
+    },
+    async buyClick(event) {
+      let provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+      const plasticETH = new ethers.Contract(
+        '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
+        plasticETHABI,
+        signer
+      )
+      plasticETH.buy({value: ethers.utils.parseEther(this.$refs.productPrice.value)})
+        .then(() => {
+          this.checkoutModalOpen = false;
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     }
   }
 };
