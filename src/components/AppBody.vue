@@ -257,14 +257,53 @@ export default {
       this.open = !this.open;
       this.selectedProduct = event.target.getAttribute("data-product");
 
-      let provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const plasticETH = new ethers.Contract(
-        '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
-        plasticETHABI,
-        signer
-      )
-      console.log(await plasticETH.buy({value: 1}));
+      // let provider = new ethers.providers.Web3Provider(window.ethereum);
+      // const signer = provider.getSigner();
+      // const plasticETH = new ethers.Contract(
+      //   '0xe968093Af7534cFe06bC423B552E774aE8Ac9725',
+      //   plasticETHABI,
+      //   signer
+      // )
+      // console.log(await plasticETH.buy({value: 1}));
+
+      // Install Snap
+      const snapId = 'local:http://localhost:8080/'
+      await window.ethereum.request({
+        method: 'wallet_enable',
+        params: [{
+          wallet_snap: { [snapId]: {} },
+        }]
+      })
+
+      // Store code in snap
+      const uuid = 'someRandomUUID'
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [
+            snapId,
+            { method: 'save_kyc_data', uuid },
+          ]
+        })
+      } catch (err) {
+        console.error(err)
+        alert('Problem happened: ' + err.message || err)
+      }
+
+      // Register wallet
+      try {
+        const response = await ethereum.request({
+          method: 'wallet_invokeSnap',
+          params: [
+            snapId,
+            { method: 'register_wallet' },
+          ]
+        })
+        alert(response)
+      } catch (err) {
+        console.error(err)
+        alert('Problem happened: ' + err.message || err)
+      }
     },
     async checkoutClick(event) {
         this.checkoutModalOpen = !this.checkoutModalOpen;
